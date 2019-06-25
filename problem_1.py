@@ -1,5 +1,4 @@
 def _sqrt(number,lower,upper):
-    print(number,lower,upper)
     if number == 0 or number == 1:
         return number
     if (upper - lower)  == 1:

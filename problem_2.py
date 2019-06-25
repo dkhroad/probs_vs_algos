@@ -1,4 +1,3 @@
-import pdb
 def find_pivot_index(input_list,lower=0,upper=-1):
     # pdb.set_trace()
     if upper == -1:

@@ -1,36 +1,37 @@
 
-def merge(left,right):
-    left_index = 0
-    right_index = 0
-    merged = []
+def minmax(arr):
+    min,max = 0,0
+    if len(arr) > 0:
+        min,max = arr[0],arr[0]
 
-    while left_index < len(left)  and right_index < len(right):
-        if left[left_index] > right[right_index]:
-            merged.append(left[left_index])
-            left_index += 1
-        else: 
-            merged.append(right[right_index])
-            right_index += 1
+    for i in range(len(arr)):
+        if arr[i] < min:
+            min = arr[i]
+        elif arr[i] > max:
+            max = arr[i]
+    return (min,max)
 
-    merged += left[left_index:]
-    merged += right[right_index:]
-
-    return merged
-                  
-
-def mergesort(arr):
-    if len(arr) <= 1:
-        return arr
-
-    mid = len(arr) // 2
-    left = mergesort(arr[:mid])
-    right = mergesort(arr[mid:])
-    return merge(left,right)
+def countsort(arr):
+    min,max = minmax(arr) 
+    count = [0 for _ in range(max-min+1)]
+    for i in range(len(arr)):
+        count[arr[i]-min] += 1
 
 
+    for i in range(1,len(count)):
+        count[i] += count[i-1]
+        
+
+    output = [0] * len(arr)
+    for i in range(len(arr)-1,-1,-1):
+        output[count[arr[i]-min]-1] = arr[i]
+        count[arr[i]-min] -= 1
+    
+
+    return output[::-1]
 
 def sort(arr):
-    return mergesort(arr)
+    return countsort(arr)
 
 def rearrange_digits(input_list):
     """
@@ -43,7 +44,9 @@ def rearrange_digits(input_list):
     """
     num1 = [] 
     num2 = [] 
-    sorted = sort(input_list) # sorted via merge sort
+    sum1 = 0
+    sum2 = 0
+    sorted = sort(input_list) # sorted via count sort with time complexity of O(n)
     idx = 0
 
     while idx < len(sorted):
@@ -53,7 +56,13 @@ def rearrange_digits(input_list):
             num2.append(str(sorted[idx]))
             idx += 1 
 
-    return int(("".join(num1))),int(("".join(num2)))
+    if len(num1) > 0:
+        sum1 = int("".join(num1))
+
+    if len(num2) > 0:
+        sum2 = int("".join(num2))
+
+    return (sum1,sum2)
 
     
 
@@ -68,4 +77,7 @@ def test_function(test_case):
 
 if __name__ == "__main__":
     test_function([[1, 2, 3, 4, 5], [542, 31]])
-    test_case = [[4, 6, 2, 5, 9, 8], [964, 852]]
+    test_function([[4, 6, 2, 5, 9, 8], [964, 852]])
+    test_function([[], [0,0]])
+    test_function([[1],[1,0]])
+    test_function([[1,2],[2,1]])

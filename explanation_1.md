@@ -13,6 +13,11 @@ If the whole search space is exhausted without finding the integer square root,
 then we  return the last lower value of the search space as it will be the
 floor value of the actual square root.
 
-Since we are using binary search to find the squart root. The time complexity
+Since we are using binary search to find the square root. The time complexity
 of this solution is: O(log N), where N is the integer for which we need
 to find the square root. 
+
+Space Complexity: O(log N)
+The biggest term contributing to space complexity is the stack usage by the
+recursive function _sqrt. Which is directly proportional to number times _sqrt
+is called. Which is: O(log N)

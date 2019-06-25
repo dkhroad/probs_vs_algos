@@ -14,3 +14,6 @@ right place as the following:
 
 Using this algorithm, we can sort the array in one pass, achieving the worst case
 time complexity of O(N), where N is the size of the input list.
+
+Space complexity: is also O(N), as we use low, mid, and high pointers in the
+input array to scan it only once.
